@@ -103,24 +103,19 @@ void alturaArbol(struct nodo* nd, int nivel, int *altura){
     }
 }
 
+int nivel = 0;
+void busqueda(struct nodo* nd, int num){
 
-void busqueda(struct nodo* nd){
+    nivel++;
 
-    int num = 0;
-
-    if(nd!= NULL){
-
-        printf("Ingrese el nodo que desea buscar: ");
-        scanf("%d", &num);
-        printf("\n\n");
-
-        if(nd -> dato == num){
-            printf("Su dato existe");
-        }else{
-            printf("Su dato no existe");
-        }
-
-        printf("\n\n");
+    if(num == nd->dato){
+        printf("El nodo %d se encuentra en el nivel %d\n", num, nivel);
+    }else if(num < nd-> dato && nd->hijo_izq != NULL){
+        busqueda(nd->hijo_izq, num);
+    }else if(num > nd-> dato && nd->hijo_der != NULL){
+        busqueda(nd->hijo_der, num);
+    }else{
+        printf("El número no fue encontrado\n");
     }
 }
 
@@ -128,6 +123,7 @@ int main(){
 
     int cant = 0;
     int altura = 0;
+    int num = 0;
 
     raiz = nuevoNodo(6);
 
@@ -158,7 +154,9 @@ int main(){
     printf("\n");
     valorMayor();
     valorMenor();
-    busqueda(raiz);
+    printf("Indique el valor que desea buscar: ");
+    scanf("%d", &num);
+    busqueda(raiz, num);
 
     return 0;
 }
